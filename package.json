@@ -1,0 +1,25 @@
+{
+  "name": "ai-writing",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup",
+    "format": "biome format --write",
+    "lint": "biome lint --write",
+    "check": "biome check --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.5",
+    "chrome-types": "^0.1.388",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
