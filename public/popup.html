@@ -1,17 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Writing Assistant 设置</title>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>AI Writing Assistant 设置</h1>
-    <form>
-      <label for="apiKey">API Key</label>
-      <input type="text" id="apiKey" name="apiKey" />
-      <button type="submit">保存</button>
-    </form>
+    <div class="header">
+      <h1>AI Writing Assistant</h1>
+      <p>AI智能写作助手设置</p>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="section">
+      <div class="section-title">模型配置</div>
+
+      <div class="form-group">
+        <label for="model">选择模型</label>
+        <select id="model">
+          <option value="gpt-4o-mini">GPT-4o Mini（快速、经济）</option>
+          <option value="gpt-4o">GPT-4o（强大、智能）</option>
+          <option value="claude-3-5-sonnet">
+            Claude 3.5 Sonnet（理解力强）
+          </option>
+          <option value="deepseek-chat">DeepSeek Chat（性价比高）</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="apiKey">
+          API Key
+          <span class="label-description">根据所选模型输入对应的 API Key</span>
+        </label>
+        <input type="text" id="apiKey" placeholder="sk-..." />
+        <div class="button-group">
+          <button id="testConnection">测试连接</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">补全设置</div>
+
+      <div class="form-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="autoComplete" />
+          <label for="autoComplete">启用自动补全</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="triggerDelay">
+          触发延迟（毫秒）
+          <span class="label-description">停顿多久后触发补全</span>
+        </label>
+        <input
+          type="number"
+          id="triggerDelay"
+          min="0"
+          max="5000"
+          step="100"
+          value="500"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>
+          手动触发快捷键
+          <span class="label-description">自定义快捷键组合</span>
+        </label>
+        <div class="shortcut-config">
+          <div class="checkbox-group">
+            <input type="checkbox" id="shortcutCtrl" />
+            <label for="shortcutCtrl">Ctrl</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="shortcutAlt" />
+            <label for="shortcutAlt">Alt</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="shortcutShift" />
+            <label for="shortcutShift">Shift</label>
+          </div>
+          <select id="shortcutKey">
+            <option value="k">K</option>
+            <option value="j">J</option>
+            <option value="space">Space</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="contextAware" />
+          <label for="contextAware">
+            启用页面上下文感知
+            <span class="label-description" style="display: block">
+              读取网页信息提供更准确的补全
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button id="save" class="primary">保存设置</button>
+    </div>
 
     <script src="popup.js"></script>
   </body>
