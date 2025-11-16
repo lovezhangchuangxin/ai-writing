@@ -139,18 +139,12 @@ export class CompletionUI {
 
     document.body.appendChild(div);
     const spanRect = span.getBoundingClientRect();
+    const divRect = div.getBoundingClientRect();
     document.body.removeChild(div);
 
     return {
-      left:
-        rect.left +
-        (spanRect.left - div.getBoundingClientRect().left) +
-        window.scrollX,
-      top:
-        rect.top +
-        (spanRect.top - div.getBoundingClientRect().top) +
-        fontSize +
-        window.scrollY,
+      left: rect.left + (spanRect.left - divRect.left) + window.scrollX,
+      top: rect.top + (spanRect.top - divRect.top) + fontSize + window.scrollY,
     };
   }
 

@@ -87,25 +87,44 @@ export class CompletionManager {
       return;
     }
 
+    // 检查补全 UI 是否显示
+    const uiInstance = this.ui as CompletionUI;
+    const isCompletionVisible =
+      uiInstance.container && uiInstance.container.style.display !== "none";
+
     // Tab 键接受补全
-    if (event.key === "Tab" && this.ui) {
-      // 检查补全 UI 是否显示
-      const uiInstance = this.ui as CompletionUI;
-      if (
-        uiInstance.container &&
-        uiInstance.container.style.display !== "none"
-      ) {
-        event.preventDefault();
-        this.ui.accept();
-        return;
-      }
+    if (event.key === "Tab" && isCompletionVisible) {
+      event.preventDefault();
+      this.ui.accept();
+      return;
     }
 
-    // Esc 键取消补全
-    if (event.key === "Escape") {
-      this.ui.hide();
-      this.cancelTrigger();
-      return;
+    // 如果补全可见，任何其他可打印字符或功能键都会取消补全
+    if (isCompletionVisible) {
+      // 允许的键（不取消补全）
+      const allowedKeys = [
+        "Shift",
+        "Control",
+        "Alt",
+        "Meta",
+        "CapsLock",
+        "NumLock",
+        "ScrollLock",
+        "Tab", // 已经在上面处理
+      ];
+
+      // Esc 键明确取消补全
+      if (event.key === "Escape") {
+        this.ui.hide();
+        this.cancelTrigger();
+        return;
+      }
+
+      // 其他任何键都取消补全（除了允许的修饰键）
+      if (!allowedKeys.includes(event.key)) {
+        this.ui.hide();
+        // 不阻止默认行为，让用户的输入正常进行
+      }
     }
 
     // 手动触发快捷键
