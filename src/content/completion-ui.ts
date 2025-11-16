@@ -279,8 +279,11 @@ export class CompletionUI {
     // 确保元素获得焦点
     element.focus();
 
+    // 预处理文本：移除多行代码中的缩进，让编辑器自己处理
+    const processedText = this.preprocessTextForCodeEditor(text);
+
     // 逐字符模拟键盘输入
-    for await (const char of text) {
+    for await (const char of processedText) {
       const charCode = char.charCodeAt(0);
 
       // 创建 keydown 事件
@@ -358,6 +361,45 @@ export class CompletionUI {
     console.log(
       `Inserted text via keyboard simulation: ${text.length} characters`,
     );
+  }
+
+  /**
+   * 预处理文本：移除多行代码中每行开头的空白，让编辑器自己处理缩进
+   */
+  private preprocessTextForCodeEditor(text: string): string {
+    // 检查是否包含换行符
+    if (!text.includes("\n")) {
+      // 单行文本，不需要处理
+      return text;
+    }
+
+    // 分割成行
+    const lines = text.split("\n");
+
+    // 如果只有一行（末尾有换行符的情况），不需要处理
+    if (lines.length <= 1) {
+      return text;
+    }
+
+    // 处理每一行
+    const processedLines = lines.map((line, index) => {
+      if (index === 0) {
+        // 第一行保持原样
+        return line;
+      }
+
+      // 后续行：移除所有前导空白
+      // 编辑器会根据上下文自动添加适当的缩进
+      line = line.trimStart();
+      // 上一行如果是 :、{，下一行增加一个缩进
+      const lastLine = lines[index - 1];
+      if (lastLine.endsWith(":") || lastLine.endsWith("{")) {
+        line = `\t${line}`;
+      }
+      return line;
+    });
+
+    return processedLines.join("\n");
   }
 
   /**
