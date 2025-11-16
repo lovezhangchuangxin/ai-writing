@@ -1,4 +1,4 @@
-import type { PageContext } from "../types";
+import type { PageContext } from "../utils/types";
 
 /**
  * 页面上下文提取器
@@ -8,6 +8,7 @@ export class ContextExtractor {
    * 提取页面上下文
    */
   extract(): PageContext {
+    const url = document.URL;
     const title = document.title;
     const description =
       document
@@ -44,6 +45,7 @@ export class ContextExtractor {
     }
 
     return {
+      url,
       title,
       description,
       keywords,
@@ -58,16 +60,20 @@ export class ContextExtractor {
   format(context: PageContext): string {
     const parts: string[] = [];
 
+    if (context.url) {
+      parts.push(`Page URL: ${context.url}`);
+    }
+
     if (context.title) {
-      parts.push(`Title: ${context.title}`);
+      parts.push(`Page Title: ${context.title}`);
     }
 
     if (context.description) {
-      parts.push(`Description: ${context.description}`);
+      parts.push(`Page Description: ${context.description}`);
     }
 
     if (context.headings.length > 0) {
-      parts.push(`Headings: ${context.headings.slice(0, 5).join(", ")}`);
+      parts.push(`Page Headings: ${context.headings.slice(0, 5).join(", ")}`);
     }
 
     return parts.join("\n");

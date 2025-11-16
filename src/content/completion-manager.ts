@@ -2,8 +2,8 @@ import type {
   CompletionRequest,
   CompletionResponse,
   UserConfig,
-} from "../types";
-import { MessageType } from "../types";
+} from "../utils/types";
+import { MessageType } from "../utils/types";
 import { CompletionUI } from "./completion-ui";
 import { ContextExtractor } from "./context-extractor";
 import { EditorDetector } from "./editor-detector";

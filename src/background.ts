@@ -1,11 +1,12 @@
 import { configManager } from "./background/config-manager";
+import { PREDEFINED_MODELS, SYSTEM_PROMPT } from "./utils/constant";
 import type {
   CompletionRequest,
   CompletionResponse,
   Message,
   UserConfig,
-} from "./types";
-import { MessageType, PREDEFINED_MODELS } from "./types";
+} from "./utils/types";
+import { MessageType } from "./utils/types";
 
 /**
  * AI API 客户端
@@ -32,8 +33,7 @@ class AIClient {
         messages: [
           {
             role: "system",
-            content:
-              "You are a code and text completion assistant. Complete the user's text naturally and concisely. Only return the completion text without any explanation or prefix.",
+            content: SYSTEM_PROMPT,
           },
           {
             role: "user",
@@ -77,7 +77,7 @@ class AIClient {
         messages: [
           {
             role: "user",
-            content: `You are a code and text completion assistant. Complete the following text naturally and concisely. Only return the completion text without any explanation or prefix.\n\n${prompt}`,
+            content: `${SYSTEM_PROMPT}\n\n${prompt}`,
           },
         ],
       }),
@@ -124,9 +124,11 @@ class AIClient {
     }
 
     // 构建 prompt
-    let prompt = request.text;
+    let prompt = "";
     if (config.contextAware && request.context) {
-      prompt = `Context: ${request.context}\n\nText to complete: ${request.text}`;
+      prompt = `[Webpage Context]\n${request.context}\n\n[User's Partial Input]\n${request.text}\n\n[Your Task]\nContinue and complete the text above. Only output the completion part.`;
+    } else {
+      prompt = `[User's Partial Input]\n${request.text}\n\n[Your Task]\nContinue and complete the text above. Only output the completion part.`;
     }
 
     // 根据 provider 调用对应的 API

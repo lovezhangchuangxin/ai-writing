@@ -42,64 +42,6 @@ export interface UserConfig {
 }
 
 /**
- * 默认配置
- */
-export const DEFAULT_CONFIG: UserConfig = {
-  selectedModel: "gpt-4o-mini",
-  apiKeys: {
-    openai: "",
-    anthropic: "",
-    deepseek: "",
-    custom: "",
-  },
-  autoComplete: true,
-  triggerDelay: 500,
-  triggerChars: [".", "(", "{", "[", ":", " "],
-  manualTriggerKey: {
-    ctrl: true,
-    alt: false,
-    shift: false,
-    key: "k",
-  },
-  contextAware: true,
-  customModels: [],
-};
-
-/**
- * 预定义的 AI 模型
- */
-export const PREDEFINED_MODELS: AIModel[] = [
-  {
-    id: "gpt-4o-mini",
-    name: "GPT-4o Mini",
-    provider: "openai",
-    apiEndpoint: "https://api.openai.com/v1/chat/completions",
-    maxTokens: 500,
-  },
-  {
-    id: "gpt-4o",
-    name: "GPT-4o",
-    provider: "openai",
-    apiEndpoint: "https://api.openai.com/v1/chat/completions",
-    maxTokens: 500,
-  },
-  {
-    id: "claude-3-5-sonnet",
-    name: "Claude 3.5 Sonnet",
-    provider: "anthropic",
-    apiEndpoint: "https://api.anthropic.com/v1/messages",
-    maxTokens: 500,
-  },
-  {
-    id: "deepseek-chat",
-    name: "DeepSeek Chat",
-    provider: "deepseek",
-    apiEndpoint: "https://api.deepseek.com/v1/chat/completions",
-    maxTokens: 500,
-  },
-];
-
-/**
  * 消息类型枚举
  */
 export enum MessageType {
@@ -140,6 +82,7 @@ export interface CompletionResponse {
  * 页面上下文信息
  */
 export interface PageContext {
+  url: string;
   title: string;
   description: string;
   keywords: string[];

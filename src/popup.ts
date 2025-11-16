@@ -1,5 +1,6 @@
-import type { AIProvider, UserConfig } from "./types";
-import { MessageType, PREDEFINED_MODELS } from "./types";
+import { PREDEFINED_MODELS } from "./utils/constant";
+import type { AIProvider, UserConfig } from "./utils/types";
+import { MessageType } from "./utils/types";
 
 /**
  * UI 元素

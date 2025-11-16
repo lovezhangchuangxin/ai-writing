@@ -1,5 +1,5 @@
-import type { AIModel, AIProvider, UserConfig } from "../types";
-import { DEFAULT_CONFIG, PREDEFINED_MODELS } from "../types";
+import { DEFAULT_CONFIG, PREDEFINED_MODELS } from "../utils/constant";
+import type { AIModel, AIProvider, UserConfig } from "../utils/types";
 
 /**
  * 配置管理器
