@@ -1,17 +1,31 @@
 {
   "name": "ai-writing",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "AI Writing Assistant, provide text completion functionality",
+  "private": true,
   "scripts": {
     "build": "tsup",
     "format": "biome format --write",
     "lint": "biome lint --write",
     "check": "biome check --write"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ai",
+    "writing",
+    "assistant",
+    "chrome",
+    "extension"
+  ],
+  "author": {
+    "name": "lovezhangchuangxin",
+    "email": "2911331070@qq.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lovezhangchuangxin/ai-writing"
+  },
+  "homepage": "https://github.com/lovezhangchuangxin/ai-writing",
   "packageManager": "pnpm@10.22.0",
   "engines": {
     "node": ">=22.0.0"
