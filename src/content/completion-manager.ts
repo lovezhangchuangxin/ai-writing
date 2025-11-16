@@ -1,4 +1,8 @@
-import type { CompletionRequest, CompletionResponse, UserConfig } from "../types";
+import type {
+  CompletionRequest,
+  CompletionResponse,
+  UserConfig,
+} from "../types";
 import { MessageType } from "../types";
 import { CompletionUI } from "./completion-ui";
 import { ContextExtractor } from "./context-extractor";
@@ -213,4 +217,3 @@ export class CompletionManager {
     this.cancelTrigger();
   }
 }
-

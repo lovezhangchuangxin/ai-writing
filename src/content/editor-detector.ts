@@ -82,4 +82,3 @@ export class EditorDetector {
     return undefined;
   }
 }
-

@@ -73,9 +73,14 @@ export class CompletionUI {
   /**
    * 获取光标位置
    */
-  private getCaretPosition(element: HTMLElement): { left: number; top: number } | null {
+  private getCaretPosition(
+    element: HTMLElement,
+  ): { left: number; top: number } | null {
     // 对于 textarea 和 input
-    if (element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement) {
+    if (
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLInputElement
+    ) {
       return this.getCaretPositionForInput(element);
     }
 
@@ -267,16 +272,15 @@ export class CompletionUI {
   /**
    * 通过键盘输入模拟插入文本
    */
-  private insertTextByKeyboardSimulation(
+  private async insertTextByKeyboardSimulation(
     element: HTMLElement,
     text: string,
-  ): void {
+  ) {
     // 确保元素获得焦点
     element.focus();
 
     // 逐字符模拟键盘输入
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
+    for await (const char of text) {
       const charCode = char.charCodeAt(0);
 
       // 创建 keydown 事件
@@ -344,6 +348,7 @@ export class CompletionUI {
       element.dispatchEvent(keyupEvent);
 
       // 添加微小延迟，模拟真实输入（可选）
+      await new Promise((resolve) => setTimeout(resolve, 4));
       // 对于长文本，可以考虑批量处理以提高性能
     }
 
@@ -410,4 +415,3 @@ export class CompletionUI {
     }
   }
 }
-

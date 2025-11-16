@@ -10,9 +10,13 @@ export class ContextExtractor {
   extract(): PageContext {
     const title = document.title;
     const description =
-      document.querySelector('meta[name="description"]')?.getAttribute("content") || "";
+      document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute("content") || "";
     const keywordsContent =
-      document.querySelector('meta[name="keywords"]')?.getAttribute("content") || "";
+      document
+        .querySelector('meta[name="keywords"]')
+        ?.getAttribute("content") || "";
     const keywords = keywordsContent.split(",").map((k) => k.trim());
 
     // 提取标题
@@ -69,4 +73,3 @@ export class ContextExtractor {
     return parts.join("\n");
   }
 }
-
