@@ -140,16 +140,43 @@ AI Writing Assistant 是一款智能浏览器插件，能够在任何网页的�
 
 ```
 ai-writing/
-├── manifest.json          # Chrome 插件配置文件
-├── background.js          # 后台服务，处理 AI API 请求
-├── content.js             # 内容脚本，注入页面逻辑
-├── content.css            # 补全 UI 样式
-├── popup.html             # 设置页面 HTML
-├── popup.css              # 设置页面样式
-├── popup.js               # 设置页面逻辑
-├── icons/                 # 插件图标
-└── docs/                  # 文档
-    └── prd.md            # 产品需求文档
+├── src/                               # 源码（TypeScript）
+│   ├── background/                    # 后台相关模块
+│   ├── background.ts                  # Service Worker（模型路由、配置存储、消息转发）
+│   ├── content/                       # 内容脚本相关模块
+│   ├── content.ts                     # 内容脚本（DOM 监听、编辑器探测、补全 UI 注入）
+│   ├── popup/                         # 弹窗页面相关模块
+│   └── popup.ts                       # 弹窗逻辑（模型选择、API Key 配置、参数设置）
+├── public/                            # 开发期静态资源
+│   ├── manifest.json                  # 扩展清单
+│   ├── popup.html                     # 弹窗页面
+│   ├── content.css                    # 内容脚本样式
+│   └── icons/                         # 扩展图标
+│       ├── icon16.png
+│       ├── icon48.png
+│       └── icon128.png
+├── dist/                              # 生产构建产物（由 tsup 生成）
+│   ├── backgroud/                     # 构建后后台目录（若有拆分资源）
+│   ├── background.js                  # Service Worker 构建后脚本
+│   ├── content/                       # 构建后的内容脚本资源目录
+│   ├── content.css                    # 构建后的样式
+│   ├── content.js                     # 构建后的内容脚本入口
+│   ├── icons/                         # 生产图标
+│   │   ├── icon16.png
+│   │   ├── icon48.png
+│   │   └── icon128.png
+│   ├── manifest.json                  # 生产清单
+│   ├── popup/                         # 构建后的弹窗资源目录
+│   ├── popup.html                     # 构建后的弹窗页面
+│   └── popup.js                       # 构建后的弹窗入口
+├── tsup.config.ts                     # 构建工具配置（打包多入口、拷贝静态等）
+├── tsconfig.json                      # TypeScript 配置
+├── biome.json                         # 代码规范/格式化配置
+├── package.json                       # 项目依赖与脚本
+├── pnpm-lock.yaml                     # 锁定依赖版本
+├── pnpm-workspace.yaml                #（如使用工作区，保留）
+├── README.md                          # 项目说明
+└── LICENSE                            # 许可证
 ```
 
 ### 核心功能实现
